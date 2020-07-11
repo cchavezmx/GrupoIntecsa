@@ -1,0 +1,27 @@
+Function conectarBDSqlServer(codEmpleado As Integer, numCampo As Integer) As String
+    Dim cn As ADODB.Connection
+    Dim datos As ADODB.Recordset
+    Dim conexion As String
+    
+    conexion = "Provider = SQLOLEDB;Data Source = Lenis-PC\SQLEXPRESS;" & _
+                "Initial Catalog = EEE;" & _
+                "Integrated Security=SSPI;"
+    
+    Set cn = New ADODB.Connection
+    Set datos = New ADODB.Recordset
+    
+    cn.Open conexion
+    Set datos = cn.Execute("Select * from Empleados where IdEmpleado = " & codEmpleado)
+    
+    If Not datos.EOF Then
+      conectarBDSqlServer = datos.Fields(numCampo - 1)
+      datos.Close
+    Else
+        MsgBox "No se encontraron registros en la consulta!", vbCritical
+    End If
+    
+    cn.Close
+    Set cn = Nothing
+    Set datos = Nothing
+
+End Function
