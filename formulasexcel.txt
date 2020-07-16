@@ -1,0 +1,22 @@
+=@Existencias(E14,$D$12,$E$12) almacen // fecha
+=SI.ERROR(conectarBDSqlServer(D14,1),"CSS")
+=@Producto_UltimoCosto(E14,$D$12,$E$12) codigo // almacen // fecha
+=Dato_Producto(E14,1)
+=Dato_Producto(E14,49)
+=SI(E14="CSS",0,(SI(F14>L14,0,(-1*(F14-L14))))) // name.r.compra  // existencias // codigoEAN // 
+=SI.ERROR(SI((F14+G14)>0,L14-M14,0),0) // name.r.entrada // existencias // ultimocosto // cantidad - r.compra
+
+
+Ubicacion Nueva hoja
+
+Nombre del producto //
+=Dato_Producto(B11,1)
+
+Unidad del producto //
+=Dato_Producto(B11,49)
+
+Existencia //
+=Existencias(I4,$C$11,$C$9) 
+
+Ultimo Costo
+=Producto_UltimoCosto(I4,$C$11,$C$9)

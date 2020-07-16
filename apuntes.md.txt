@@ -1,0 +1,25 @@
+
+  Worksheets("Datos").ListObjects("requerimientos").Range.AutoFilter Field:=9, Criteria1:=Me.proyecto.Value
+  
+  final = Worksheets("Datos").Cells(Rows.Count, 1).End(xlUp).Row
+  espacio = Worksheets("Requerimiento").Cells(Rows.Count, 2).End(xlUp).Row + 1
+      
+      
+        'copia la columna de codigo
+        Worksheets("Datos").Range("D2:D" & final).Copy
+        Worksheets("Requerimiento").Cells(11, 2).PasteSpecial Paste:=xlPasteValues
+        
+        'copia columna de id
+        Worksheets("Datos").Range("A2:A" & final).Copy
+        Worksheets("Requerimiento").Cells(11, 1).PasteSpecial Paste:=xlPasteValues
+         
+        'copia columna de concepto
+        Worksheets("Datos").Range("E2:E" & final).Copy
+        Worksheets("Requerimiento").Cells(11, 5).PasteSpecial Paste:=xlPasteValues
+        
+        'copia columna de cantidad
+        Worksheets("Datos").Range("G2:G" & final).Copy
+        Worksheets("Requerimiento").Cells(11, 9).PasteSpecial Paste:=xlPasteValues
+
+
+
