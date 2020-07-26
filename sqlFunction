@@ -1,0 +1,23 @@
+Function conectarBDSqlServer(idproducto As String, numCampo As Integer) As String
+    Dim cn As ADODB.Connection
+    Dim datos As ADODB.Recordset
+    Dim conexion As String
+    Dim columna As Integer
+    columna = 5
+    Set cn = New ADODB.Connection
+    Set datos = New ADODB.Recordset
+    ' conexion = "Provider=SQLOLEDB.1;Persist Security Info=True;User ID=Sysadmin;Password=mOON020106;Initial Catalog=FILANTROPOS;Data Source=sqlita.database.windows.net;Use Procedure for Prepare=1;Auto Translate=True;Packet Size=4096;Workstation ID=WIN-SAISHO;Use Encryption for Data=False;Tag with column collation when possible=False"
+     'conexion = "Provider=SQLOLEDB.1;Persist Security Info=True;User ID=sa;Password=mOON020106;Initial Catalog=FILANTROPOS;Data Source=WIN-SAISHO\REPTILIANO;"
+     conexion = "Provider=SQLOLEDB.1;Persist Security Info=True;User ID=sa;Password=mOON020106;Initial Catalog=adITA2020;Data Source=ADMINPAQ-SERVER\COMPAC;"
+    cn.Open conexion
+    'Set datos = cn.Execute("Select * from LP20 where CCODIGO = " & "'" & idproducto & "'")
+     Set datos = cn.Execute("SELECT * FROM dbo.admProductos WHERE CCODALTERN = " & "'" & idproducto & "'")
+    If Not datos.EOF Then
+      conectarBDSqlServer = datos.Fields(numCampo)
+    Else
+    datos.Close
+    End If
+    cn.Close
+    Set cn = Nothing
+    Set datos = Nothing
+End Function

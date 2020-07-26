@@ -1,0 +1,50 @@
+Private Sub CommandButton2_Click()
+Dim fila As Integer
+Dim columna As Integer
+            'crea un filtro quitando ceros pero no sirve con hoja protegida
+            ' Worksheets("Exportar").Range("B18:E25").AutoFilter Field:=1, Criteria1:=">0"
+       'columna cantidad
+        columna = 14
+        For fila = 14 To 200 Step 1
+            If Worksheets("Cotizador").Cells(fila, columna).Value > 0 Then
+               Worksheets("Cotizador").Cells(fila, columna).Copy
+               Worksheets("Exportar").Cells(fila + 4, columna - 10).PasteSpecial Paste:=xlPasteValues
+                'Worksheets("Exportar").Cells(fila + 4, columna - 10).Select
+                'nextrow = cells(rows.Count,1
+            End If
+            Next fila
+        ' columna EAN
+        columna = 14
+             For fila = 14 To 200 Step 1
+             If Worksheets("Cotizador").Cells(fila, columna).Value > 0 Then
+                Worksheets("Cotizador").Cells(fila, columna - 9).Copy
+                Worksheets("Exportar").Cells(fila + 4, columna - 12).PasteSpecial Paste:=xlPasteValues
+            End If
+            Next fila
+           ' columna precio
+                  columna = 14
+             For fila = 14 To 200 Step 1
+             If Worksheets("Cotizador").Cells(fila, columna).Value > 0 Then
+                Worksheets("Cotizador").Cells(fila, columna - 7).Copy
+                Worksheets("Exportar").Cells(fila + 4, columna - 9).PasteSpecial Paste:=xlPasteValues
+            End If
+           Next fila
+End Sub
+Private Sub CommandButton3_Click()
+  Dim lTipoCatalogo As Integer
+  Dim lRutaEmpresa As String
+  Dim lResultado As String
+  Dim lConsulta As String
+  'Validación de la empresa
+  lRutaEmpresa = Application.Run("Hoja_Comercial_AddIn.XLA!BuscaRutaEmpresaActiva", -1)
+  If (Trim(lRutaEmpresa) = "") Then
+    Exit Sub
+  End If
+  gControlF3 = 1
+   ActiveCell.Value = "'" & Application.Run("Hoja_Comercial_AddIn.XLA!fDespliegaCatalogoF3", 3, lRutaEmpresa)
+   If (Trim(ActiveCell.Value) = "") Then
+   Exit Sub
+ End If
+End Sub
+Private Sub ToggleButton1_Click()
+End Sub
