@@ -21,3 +21,77 @@ Function conectarBDSqlServer(idproducto As String, numCampo As Integer) As Strin
     Set cn = Nothing
     Set datos = Nothing
 End Function
+
+
+/// ESTO SEGUN ME VA A SERIVIR PARA COPIAR LOS DATOS 
+
+    If RS.State Then
+        Col = 1
+    
+        For Each Field In RS.Fields
+            Cells(1, Col) = Field.Name
+            Col = Col + 1
+        Next Field
+    
+        Cells(2, 1).CopyFromRecordset RS
+        Set RS = Nothing
+    End If
+
+
+
+    /// DE MICROSFT
+
+
+    For iCols = 0 to rs.Fields.Count - 1 
+ ws.Cells(1, iCols + 1).Value = rs.Fields(iCols).Name 
+Next 
+ws.Range(ws.Cells(1, 1), _ 
+ ws.Cells(1, rs.Fields.Count)).Font.Bold = True 
+ws.Range("A2").CopyFromRecordset rs
+
+
+copia el Recordset
+
+
+Private Sub CommandButton1_Click()
+Dim cn As ADODB.Connection
+Dim rs As ADODB.Recordset
+Dim SQL As String
+Dim elemento As String
+Dim final As Integer
+Dim colRS As Integer
+
+'/ configurando las conexiones /
+
+elemento = frm_datos.ListBox1.Value
+
+Set cn = New ADODB.Connection
+cn.Open "Provider=SQLOLEDB.1;Persist security info=True; User ID=sa;Password =mOON020106; Initial Catalog =almacenNB;Data Source=localhost\COMPAC;"
+
+Set rs = New ADODB.Recordset
+
+SQL = "Select cod, codigo, concepto, unidad, cantidad from requerimientos where ns = '" & elemento & "';"
+
+'// Mandamos la consulta al RecordSet //
+
+rs.Open SQL, cn
+
+'/// The magic is begun ///
+
+colRS = 1
+
+    With Worksheets("Requerimiento") ' usamos with para no escribir tantas veces la hoja donde nos hubicamos
+      
+    final = .Cells(Rows.Count, 2).End(xlUp).Row 'tamaño de la lista para empezar a copiar.
+    
+        'For colRS = 0 To rs.Fields.Count - 1
+        
+        .Cells(1, 11).Value = rs![cod]
+        .Cells(1, 11).CopyFromRecordset rs
+        
+        MsgBox rs.Fields.Count
+        
+     End With
+
+
+End Sub
