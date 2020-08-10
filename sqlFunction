@@ -95,3 +95,9 @@ colRS = 1
 
 
 End Sub
+
+
+
+Set sourceRange = Worksheets("Sheet1").Range("A1:A2") 
+Set fillRange = Worksheets("Sheet1").Range("A1:A20") 
+sourceRange.AutoFill Destination:=fillRange
