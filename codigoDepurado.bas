@@ -1,3 +1,48 @@
+'MACRO PARA COMPARAR DOS COLUMNAS DE DATOS EN EXCXEL 
+
+Sub buscador()
+
+Dim filaOrigen As Integer
+Dim filaBuscar As Integer
+
+Dim col_origen As Integer
+Dim col_destino As Integer
+
+' definimos la columna que queremos comprar
+    
+    col_origen = Application.InputBox(prompt:="Seleccione la columna de la hoja Origen", Type:=1)
+    col_destino = Application.InputBox(prompt:="Seleccione la columna de la hoja Destino", Type:=1)
+        
+'Buscar tamaño de las filas
+
+    filaOrigen = Worksheets("Origen").Cells(Rows.Count, col_origen).End(xlUp).Row
+    filaBuscar = Worksheets("Destino").Cells(Rows.Count, col_destino).End(xlUp).Row
+    
+' Pasamos el ciclo for
+    
+    For x = 2 To filaOrigen Step 1
+    
+    ' setamos el valor a buscar
+    Set curCell = Worksheets("Origen").Cells(x, col_origen)
+    
+    
+    For i = 2 To filaBuscar Step 1
+    Set seekCell = Worksheets("Destino").Cells(i, col_destino)
+    
+    If curCell.Value = seekCell.Value Then
+    Worksheets("Destino").Cells(i, col_destino).Interior.Color = 65535
+    
+    'revisa en cada iteracion si ya termino la lista para liberar el for y terminar la macro
+    If i = filaBuscar Then Exit For
+    
+    End If
+    
+    Next i
+    Next x
+    
+End Sub
+
+
 'MODULO DE NUEVOS ELEMENTOS A LA BASE DE DATOS.
 '////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Private Sub btn_agregar_Click()
